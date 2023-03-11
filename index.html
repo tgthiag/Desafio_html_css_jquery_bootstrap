@@ -105,6 +105,7 @@
               margin: 1px;
               width: fit-content;
             "
+            onclick="selectOption('cep')"
           >
             2.CEP API
           </button>
@@ -160,7 +161,7 @@
         "
       >
         <!-- 1.Numbers -->
-        <div id="numbers" style="margin: 5px">
+        <div id="numbers" style="margin: 5px; display: none">
           <div class="form-outline">
             <label class="form-label" for="typeNumber"
               >Insira os números:</label
@@ -188,41 +189,63 @@
               Salvar
             </button>
           </div>
-            <i class="fas fa-save"></i>
-            <div id="resultado"></div>
-            <script>
-              var numbers = [];
-              $(document).ready(function () {
-                $("#btn_submit").click(function () {
-                  numbers.push($("#typeNumber").val());
-                  numbers.sort((a, b) => a - b);
-                  $("#typeNumber").val("");
-                  $("#resultado").text("Dispostos em ordem: " + numbers);
-                });
+          <i class="fas fa-save"></i>
+          <div id="resultado"></div>
+          <script>
+            var numbers = [];
+            $(document).ready(function () {
+              $("#btn_submit").click(function () {
+                numbers.push($("#typeNumber").val());
+                numbers.sort((a, b) => a - b);
+                $("#typeNumber").val("");
+                $("#resultado").text("Dispostos em ordem: " + numbers);
               });
+            });
 
-              const downloadFile = () => {
-                const link = document.createElement("a");
-                const content = numbers;
-                const file = new Blob([content], { type: "text/plain" });
-                link.href = URL.createObjectURL(file);
-                link.download = "resultado.txt";
-                link.click();
-                URL.revokeObjectURL(link.href);
-              };
-            </script>
-
+            const downloadFile = () => {
+              const link = document.createElement("a");
+              myJson = "{" + "result" + " : " + numbers + "}";
+              const content = myJson;
+              const file = new Blob([content], { type: "text/plain" });
+              link.href = URL.createObjectURL(file);
+              link.download = "resultado.txt";
+              link.click();
+              URL.revokeObjectURL(link.href);
+            };
+          </script>
         </div>
-        <!-- API Correios CEP -->
-        <div>
-          
-        </div>
-        <script>
-          selectOption = (screen) => {
-            $("#" + screen).toggle();
-          };
-        </script>
+      
+      <!-- API Correios CEP -->
+      <div id="cep" style="display: none">
+        <form
+          class="d-flex flex-column"
+          style="align-items: center; align-content: center"
+        >
+          <label style="margin-top: 5px">Digite o CEP:</label>
+          <input
+            type="text"
+            id="typeCep"
+            class="form-control"
+            style="border-radius: 10px"
+          />
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="margin: 5px; border-radius: 10px"
+          >
+            Consultar
+          </button>
+          <label style="margin-top: 3px">Endereço:</label>
+        </form>
       </div>
+    </div>
     </main>
+    <script>
+      selectOption = (screen) => {
+        $("#numbers").hide()
+        $("#cep").hide()
+        $("#" + screen).toggle();
+      };
+    </script>
   </body>
 </html>
