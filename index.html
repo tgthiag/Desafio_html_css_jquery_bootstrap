@@ -12,20 +12,35 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./sources/js/main.js"></script>
     <link rel="stylesheet" href="./sources/css/style.css" />
   </head>
-
+  <!-- Body -->
   <body
+    class="d-flex flex-column"
     style="
+      max-width: 500px;
       background: linear-gradient(
         to right,
         rgba(94, 231, 223, 0.5),
         rgba(180, 144, 202, 0.5)
       );
+      margin: auto;
     "
   >
-  <!-- Header -->
+    <!-- Header -->
     <header
+      class="justify-self-center"
       style="
         margin-left: 3%;
         margin-right: 3%;
@@ -34,6 +49,7 @@
         border-radius: 20px;
         border: 1px solid white;
         box-shadow: -1px 1px;
+        border-style: groove;
       "
     >
       <h1
@@ -49,7 +65,7 @@
       />
     </header>
     <!-- Main -->
-    <main class="container d-flex" style="margin-top: 20px;width:100%;">
+    <main class="container d-flex" style="margin-top: 20px; width: 100%">
       <!-- left container -->
       <div
         class="col-lg-1 d-flex flex-column"
@@ -60,12 +76,11 @@
           margin-right: 5px;
           border-radius: 10px;
           align-items: center;
-          align-content: center;
-          min-width: 100px;
+          min-width: 109px;
           box-shadow: -1px 1px;
         "
       >
-        <div class="btn-group-vertical">
+        <div class="btn-group-vertical d-flex">
           <button
             type="button"
             class="bt_1 btn btn-dark"
@@ -74,9 +89,12 @@
               border-radius: 25px;
               margin: 1px;
               width: fit-content;
+              align-items: center;
+              align-content: center;
             "
+            onclick="selectOption('numbers')"
           >
-            Teste1
+            1.Números
           </button>
           <button
             type="button"
@@ -88,7 +106,7 @@
               width: fit-content;
             "
           >
-            Teste2
+            2.CEP API
           </button>
           <button
             type="button"
@@ -128,7 +146,7 @@
           </button>
         </div>
       </div>
-<!-- right container -->
+      <!-- right container -->
       <div
         class="col-lg-8 d-flex"
         style="
@@ -138,29 +156,73 @@
           box-shadow: -1px 1px;
           justify-content: center;
           text-align: center;
+          border-style: groove;
         "
       >
-        <div style="margin: 5px;">
+        <!-- 1.Numbers -->
+        <div id="numbers" style="margin: 5px">
           <div class="form-outline">
-            <label class="form-label" for="typeNumber">Insira os números:</label>
-            <input type="number" id="typeNumber" class="form-control" />
-
+            <label class="form-label" for="typeNumber"
+              >Insira os números:</label
+            >
+            <input
+              type="number"
+              id="typeNumber"
+              class="form-control"
+              style="border-radius: 10px"
+            />
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin: 5px; border-radius: 10px"
+              id="btn_submit"
+            >
+              Submit
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin: 5px; border-radius: 10px"
+              onclick="downloadFile()"
+            >
+              Salvar
+            </button>
           </div>
+            <i class="fas fa-save"></i>
+            <div id="resultado"></div>
+            <script>
+              var numbers = [];
+              $(document).ready(function () {
+                $("#btn_submit").click(function () {
+                  numbers.push($("#typeNumber").val());
+                  numbers.sort((a, b) => a - b);
+                  $("#typeNumber").val("");
+                  $("#resultado").text("Dispostos em ordem: " + numbers);
+                });
+              });
+
+              const downloadFile = () => {
+                const link = document.createElement("a");
+                const content = numbers;
+                const file = new Blob([content], { type: "text/plain" });
+                link.href = URL.createObjectURL(file);
+                link.download = "resultado.txt";
+                link.click();
+                URL.revokeObjectURL(link.href);
+              };
+            </script>
+
         </div>
+        <!-- API Correios CEP -->
+        <div>
+          
+        </div>
+        <script>
+          selectOption = (screen) => {
+            $("#" + screen).toggle();
+          };
+        </script>
       </div>
     </main>
   </body>
-  <!-- JS -->
-
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script>
-  <script src="./sources/js/main.js"></script>
 </html>
