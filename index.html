@@ -68,7 +68,7 @@
     <main class="container d-flex" style="margin-top: 20px; width: 100%">
       <!-- left container -->
       <div
-        class="col-lg-1 d-flex flex-column"
+        class="col-lg-1 d-flex flex-column text-center"
         style="
           width: 25%;
           border: 10cap;
@@ -80,7 +80,7 @@
           box-shadow: -1px 1px;
         "
       >
-        <div class="btn-group-vertical d-flex">
+        <div class="btn-group-vertical-text-center">
           <button
             type="button"
             class="bt_1 btn btn-dark"
@@ -94,7 +94,7 @@
             "
             onclick="selectOption('numbers')"
           >
-            1.Números
+            Números
           </button>
           <button
             type="button"
@@ -107,7 +107,20 @@
             "
             onclick="selectOption('cep')"
           >
-            2.CEP API
+            CEP API
+          </button>
+          <button
+            type="button"
+            class="bt_1 btn btn-dark"
+            style="
+              background-color: #30626934;
+              border-radius: 25px;
+              margin: 1px;
+              width: fit-content;
+            "
+            onclick="selectOption('perfect')"
+          >
+            N Perfeito
           </button>
           <button
             type="button"
@@ -119,19 +132,7 @@
               width: fit-content;
             "
           >
-            Teste3
-          </button>
-          <button
-            type="button"
-            class="bt_1 btn btn-dark"
-            style="
-              background-color: #30626934;
-              border-radius: 25px;
-              margin: 1px;
-              width: fit-content;
-            "
-          >
-            Teste4
+            Tabuada
           </button>
           <button
             type="button"
@@ -214,36 +215,77 @@
             };
           </script>
         </div>
-      
-      <!-- API Correios CEP -->
-      <div id="cep" style="display: none">
-        <form
-          class="d-flex flex-column"
-          style="align-items: center; align-content: center"
-        >
-          <label style="margin-top: 5px">Digite o CEP:</label>
-          <input
-            type="text"
-            id="typeCep"
-            class="form-control"
-            style="border-radius: 10px"
-          />
-          <button
-            type="submit"
-            class="btn btn-primary"
-            style="margin: 5px; border-radius: 10px"
+
+        <!-- API Correios CEP -->
+        <div id="cep" style="display: none">
+          <form
+            class="d-flex flex-column"
+            style="align-items: center; align-content: center"
           >
-            Consultar
-          </button>
-          <label style="margin-top: 3px">Endereço:</label>
-        </form>
+            <label style="margin-top: 5px">Digite o CEP:</label>
+            <input
+              type="text"
+              id="typeCep"
+              class="form-control"
+              style="border-radius: 10px"
+            />
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin: 5px; border-radius: 10px"
+            >
+              Consultar
+            </button>
+            <label style="margin-top: 3px">Endereço:</label>
+          </form>
+        </div>
+
+        <!-- Calc Perfeito -->
+        <div id="perfect" style="display: none;">
+          <div>
+            <h6 class="mb-3 h6">Cálculo de número perfeito</h6>
+            <p class="text-muted"></p>
+            <label style="margin-top: 5px">Digite um número:</label>
+            <input
+              type="number"
+              id="typePerfect"
+              class="form-control"
+              style="border-radius: 10px"
+            />
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin: 5px; border-radius: 10px"
+              onclick="is_perfect(document.getElementById('typePerfect').value)"
+            >
+              Consultar
+            </button>
+            <div id="perfeito_result"></div>
+          </div>
+          <script>
+            function is_perfect(number) {
+              var temp = 0;
+              for (var i = 1; i <= number / 2; i++) {
+                if (number % i === 0) {
+                  temp += i;
+                }
+              }
+
+              if (temp == number && temp !== 0) {
+                $("#perfeito_result").text(number + " é um número perfeito");
+              } else {
+                $("#perfeito_result").text(number + " não é um número perfeito");
+              }
+            }
+          </script>
+        </div>
       </div>
-    </div>
     </main>
     <script>
       selectOption = (screen) => {
-        $("#numbers").hide()
-        $("#cep").hide()
+        $("#numbers").hide();
+        $("#cep").hide();
+        $("#perfect").hide();
         $("#" + screen).toggle();
       };
     </script>
