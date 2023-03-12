@@ -150,10 +150,14 @@
           border-style: groove;
         "
       >
-      <!-- Default Message -->
-      <div id="default_message" class="collapse show" style="align-items: center;display: flex;">
-        <h6 class="mb-3 h6">Selecione uma opção para iniciar</h6>
-      </div>
+        <!-- Default Message -->
+        <div
+          id="default_message"
+          class="collapse show"
+          style="align-items: center; display: flex"
+        >
+          <h6 class="mb-3 h6">Selecione uma opção para iniciar</h6>
+        </div>
         <!-- 1.Numbers -->
         <div id="numbers" style="margin: 5px; display: none">
           <div class="form-outline">
@@ -276,7 +280,7 @@
             >
               Consultar
             </button>
-            <div id="perfeito_result"></div>
+            <div id="perfeito_result" style="margin: 5px"></div>
           </div>
           <script>
             function is_perfect(number) {
@@ -383,7 +387,7 @@
     </main>
     <script>
       selectOption = (screen) => {
-        $("#default_message").hide()
+        $("#default_message").hide();
         $("#numbers").hide();
         $("#cep").hide();
         $("#perfect").hide();
