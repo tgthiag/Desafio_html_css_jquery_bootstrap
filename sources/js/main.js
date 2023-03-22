@@ -1,3 +1,4 @@
+// Show hide Layout
 selectOption = (screen) => {
   $("#default_message").hide();
   $("#numbers").hide();
@@ -7,6 +8,7 @@ selectOption = (screen) => {
   $("#" + screen).toggle();
 };
 
+// Brazilian CEP consult
 function consultarCep(event) {
   event.preventDefault();
   let cep = $("#typeCep").val().replace("-", "");
@@ -27,6 +29,7 @@ function consultarCep(event) {
     });
 }
 
+// Verification for perfect number
 function is_perfect(number) {
   var temp = 0;
   for (var i = 1; i <= number / 2; i++) {
@@ -42,10 +45,12 @@ function is_perfect(number) {
   }
 }
 
+// select operator for arithmetic table
 function dropdown(operation) {
   $("#dropdown").text(`${operation}`);
 }
 
+// Arithmetic table calc
 function tabuada(number) {
   let str = "";
   let calculo = "";
@@ -76,21 +81,37 @@ function tabuada(number) {
   }
 }
 
-let numbers = [];
+// IMC calc (BMI - body mass index)
+
+function imcResult(imc){
+if (imc > 40) {
+  return "Obesidade grave"
+} else if (imc >= 30) {
+  return "Obesidade"
+}else if (imc >= 25) {
+  return "Sobrepeso"
+}else if (imc >= 18) {
+  return "normal"
+}else if(imc < 18){
+  return "Abaixo do peso"
+}
+}
+
 $(document).ready(function () {
   $("#btn_submit").click(function () {
-    numbers.push($("#typeNumber").val());
-    numbers.sort((a, b) => a - b);
     $("#typeNumber").val("");
-    $("#resultado").text("Dispostos em ordem: " + numbers);
+    var altura = $("#typeNumber_altura").val()
+    var peso = $("#typeNumber_peso").val()
+    var imc = (peso / (altura * altura)).toFixed(2)
+    $("#resultado").text(imc + " " + imcResult(imc));
   });
 });
 
 const downloadFile = () => {
   const link = document.createElement("a");
-  myJson = "{" + "result" + " : " + numbers + "}";
-  const content = myJson;
-  const file = new Blob([content], { type: "application/json" });
+  myimc = $("#resultado").text();
+  const content = myimc;
+  const file = new Blob([content], { type: 'text/plain' });
   link.href = URL.createObjectURL(file);
   link.download = "resultado.txt";
   link.click();

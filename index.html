@@ -94,7 +94,7 @@
             "
             onclick="selectOption('numbers')"
           >
-            Números
+            IMC calc
           </button>
           <button
             type="button"
@@ -158,18 +158,26 @@
         >
           <h6 class="mb-3 h6">Selecione uma opção para iniciar</h6>
         </div>
-        <!-- 1.Numbers -->
+        <!-- 1.IMC Calc -->
         <div id="numbers" style="margin: 5px; display: none">
           <div class="form-outline">
             <label class="form-label" for="typeNumber"
-              >Insira os números:</label
+              >Insira os valores:</label
             >
             <input
               type="number"
-              id="typeNumber"
+              id="typeNumber_peso"
               class="form-control"
               style="border-radius: 10px"
+              placeholder="Seu peso, ex: 64"
             />
+            <input
+            type="number"
+            id="typeNumber_altura"
+            class="form-control"
+            style="border-radius: 10px"
+            placeholder="Sua altura: Ex: 1.60"
+          />
             <button
               type="submit"
               class="btn btn-primary"
